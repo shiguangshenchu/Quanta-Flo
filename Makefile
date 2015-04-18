@@ -352,7 +352,7 @@ CHECK		= sparse
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
 
-KERNELFLAGS  = -Ofast -DNDEBUG -munaligned-access -fgcse-lm -fgcse-sm -fsingle-precision-constant -fforce-addr -fsched-spec-load -mcpu=cortex-a15 -mtune=cortex-a15 -marm -mfpu=neon-vfpv4 -ftree-vectorize -mvectorize-with-neon-quad -funroll-loops -fgcse-las -fpredictive-commoning -ffast-math $(GRAPHITE_FLAGS)
+KERNELFLAGS  = -Ofast -DNDEBUG -munaligned-access -fgcse-lm -fgcse-sm -fsingle-precision-constant -fforce-addr -fsched-spec-load -mtune=cortex-a15 -marm -mfpu=neon-vfpv4 -ftree-vectorize -fgcse-las -fpredictive-commoning -ffast-math -floop-nest-optimize $(GRAPHITE_FLAGS)
 MODFLAGS  = -DMODULE $(KERNELFLAGS)
 CFLAGS_MODULE   = $(MODFLAGS) -fno-pic
 AFLAGS_MODULE   = $(MODFLAGS)
@@ -381,7 +381,7 @@ KBUILD_CFLAGS := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
                  -Wno-sizeof-pointer-memaccess \
                  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
                  -fmodulo-sched -fmodulo-sched-allow-regmoves \
-		 -mtune=cortex-a15 -mcpu=cortex-a15 -mfpu=neon-vfpv4 \
+		 -mtune=cortex-a15 -mfpu=neon-vfpv4 \
                  $(GRAPHITE_FLAGS)
 
 KBUILD_AFLAGS_KERNEL :=
