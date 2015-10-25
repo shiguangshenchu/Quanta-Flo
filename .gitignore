@@ -85,3 +85,5 @@ GTAGS
 *~
 \#*#
 build.sh
+boot.img
+zip/
