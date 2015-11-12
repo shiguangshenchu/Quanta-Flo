@@ -10,20 +10,20 @@
 #
 
 export CROSS_COMPILE="$HOME/uber-arm-eabi-5.2/bin/arm-eabi-"
-KERNEL_DIRECTORY="$HOME/Quanta-Mako"
+KERNEL_DIRECTORY="$HOME/Quanta-Flo"
 ANYKERNEL_DIRECTORY="$HOME/anykernel_msm"
 JOBS=`grep -c "processor" /proc/cpuinfo`
 # Verify if the CM patches has already been applied. We don't want to apply them again if the compiling is stopped
 CM_CHECK=`grep -c "case MDP_YCBYCR_H2V1:" drivers/video/msm/mdp4_overlay.c`
-DEVICE="Mako"
-VERSION=7
+DEVICE="Flo"
+VERSION=4
 
 
 # Function responsible for download Anykernel if it's not found by the ANYKERNEL_DIRECTORY variable.
 function download_anykernel() {
 echo "Anykernel hasn't been found in $ANYKERNEL_DIRECTORY."
 echo "Downloading it..."
-git clone https://github.com/zaclimon/anykernel_msm -b mako-6.0 $ANYKERNEL_DIRECTORY
+git clone https://github.com/zaclimon/anykernel_msm -b flo-6.0 $ANYKERNEL_DIRECTORY
 } 
 
 # Download Anykernel if not found.
@@ -46,7 +46,7 @@ fi
 
 # Ensure that we're on the correct Anykernel branch
 cd $ANYKERNEL_DIRECTORY
-git checkout mako-6.0
+git checkout flo-6.0
 
 cd $KERNEL_DIRECTORY
 
