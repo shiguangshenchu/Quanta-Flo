@@ -29,6 +29,8 @@
 #include "board-flo.h"
 #include <mach/board_asustek.h>
 
+#include <linux/display_state.h>
+
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 /* prim = 1366 x 768 x 3(bpp) x 3(pages) */
 #define MSM_FB_PRIM_BUF_SIZE roundup(1920 * 1920 * 4 * 3, 0x10000)
@@ -103,6 +105,14 @@ unsigned char apq8064_mhl_display_enabled(void)
 }
 
 static void set_mdp_clocks_for_wuxga(void);
+
+bool display_on = true;
+
+bool is_display_on()
+{
+	return display_on;
+}
+
 
 static int msm_fb_detect_panel(const char *name)
 {
@@ -513,6 +523,8 @@ static int mipi_dsi_panel_power(int on)
 	}
 
 	if (on) {
+		display_on = true;
+	
 		rc = regulator_enable(reg_lvs7);
 		if (rc) {
 			pr_err("enable lvs7 failed, rc=%d\n", rc);
@@ -565,6 +577,8 @@ static int mipi_dsi_panel_power(int on)
 			msleep(20);
 		}
 	} else {
+		display_on = false;
+
 		if (type == 0) {
 			msleep(20);
 			gpio_set_value_cansleep(gpio_EN_VDD_BL, 0);
